@@ -1,2 +1,0 @@
-# sark-dokusu
-sark dokusu
