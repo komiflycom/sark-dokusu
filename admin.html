@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yönetici Paneli — Şark Dokusu</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-body">
+<div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+
+<!-- ====== GİRİŞ ====== -->
+<div class="login-shell" id="login-view">
+  <div class="login-card">
+    <a class="brand" href="./">
+      <span class="brand-mark" aria-hidden="true"><img src="logo.png" alt="" width="38" height="38" id="login-logo" loading="eager"></span>
+      <span class="brand-text">
+        <span class="brand-name" data-store-name>Şark Dokusu</span>
+        <span class="brand-sub">Yönetici Paneli</span>
+      </span>
+    </a>
+    <h1>Panele giriş</h1>
+    <p class="sub">Ürünleri yönetmek için yönetici hesabınızla giriş yapın.</p>
+    <div class="alert is-error" id="login-alert" role="alert" hidden></div>
+    <form id="login-form" novalidate>
+      <div class="field">
+        <label for="login-email">E-posta</label>
+        <input class="input" id="login-email" type="email" autocomplete="username" required placeholder="ornek@eposta.com" inputmode="email">
+      </div>
+      <div class="field">
+        <label for="login-password">Şifre</label>
+        <input class="input" id="login-password" type="password" autocomplete="current-password" required placeholder="••••••••">
+      </div>
+      <button class="btn" id="login-submit" type="submit" style="width:100%;margin-top:6px">Giriş yap</button>
+    </form>
+    <p class="hint mt-16" style="text-align:center;font-size:12px;color:#8b957f">
+      Giriş yalnızca Supabase'de tanımlı yönetici hesabıyla yapılabilir.
+    </p>
+  </div>
+</div>
+
+<!-- ====== PANEL ====== -->
+<div id="admin-view" hidden>
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="sidebar-brand">
+      <img src="logo.png" alt="" width="32" height="32" id="sidebar-logo">
+      <span class="sidebar-store-name" data-store-name>Şark Dokusu</span>
+    </div>
+    <nav class="sidebar-nav" aria-label="Yönetici menüsü">
+      <button class="snav-item is-active" data-tab="products" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        Ürünler
+      </button>
+      <button class="snav-item" data-tab="categories" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Kategoriler
+      </button>
+      <button class="snav-item" data-tab="settings" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+        Site Ayarları
+      </button>
+      <button class="snav-item" data-tab="account" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        Hesap
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <span class="user-pill"><span class="dot" aria-hidden="true"></span><span id="admin-email">—</span></span>
+      <button class="btn btn-outline btn-sm" id="logout-btn" type="button">Çıkış</button>
+    </div>
+  </aside>
+
+  <!-- Main wrap -->
+  <div class="admin-main-wrap">
+    <header class="admin-topbar">
+      <button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-label="Menüyü aç/kapat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <h1 class="topbar-title" id="topbar-title">Ürün Yönetimi</h1>
+      <a class="btn btn-sm btn-outline" href="./" target="_blank" rel="noopener">Siteyi gör</a>
+    </header>
+
+    <main class="admin-main">
+      <div class="alert is-error" id="global-alert" role="alert" hidden></div>
+
+      <!-- ===== ÜRÜNLER ===== -->
+      <div class="tab-panel is-active" id="tab-products">
+        <div class="admin-grid">
+          <section class="panel" aria-labelledby="form-title">
+            <div class="panel-head">
+              <h2 id="form-title">Yeni ürün</h2>
+              <button class="btn btn-outline btn-sm" id="cancel-edit" type="button" hidden>Vazgeç</button>
+            </div>
+            <form id="product-form" novalidate>
+              <input type="hidden" id="product-id">
+
+              <div class="lang-tabs" id="product-lang-tabs" role="tablist" aria-label="Ürün dili">
+                <button class="ltab is-active" role="tab" aria-selected="true"  data-lang="tr" type="button">TR</button>
+                <button class="ltab" role="tab" aria-selected="false" data-lang="en" type="button">EN</button>
+                <button class="ltab" role="tab" aria-selected="false" data-lang="ar" type="button">AR</button>
+                <button class="ltab" role="tab" aria-selected="false" data-lang="de" type="button">DE</button>
+                <button class="ltab" role="tab" aria-selected="false" data-lang="fr" type="button">FR</button>
+              </div>
+
+              <div class="field" id="pf-name-tr">
+                <label for="p-name-tr">Ürün adı <span class="req">*</span> <span class="lang-badge">TR</span></label>
+                <input class="input" id="p-name-tr" type="text" maxlength="120" required placeholder="Türkçe ad">
+              </div>
+              <div class="field" id="pf-name-en" hidden>
+                <label for="p-name-en">Product name <span class="lang-badge">EN</span></label>
+                <input class="input" id="p-name-en" type="text" maxlength="120" placeholder="English name">
+              </div>
+              <div class="field" id="pf-name-ar" hidden>
+                <label for="p-name-ar">اسم المنتج <span class="lang-badge">AR</span></label>
+                <input class="input" id="p-name-ar" type="text" maxlength="120" placeholder="الاسم بالعربية" dir="rtl">
+              </div>
+              <div class="field" id="pf-name-de" hidden>
+                <label for="p-name-de">Produktname <span class="lang-badge">DE</span></label>
+                <input class="input" id="p-name-de" type="text" maxlength="120" placeholder="Deutscher Name">
+              </div>
+              <div class="field" id="pf-name-fr" hidden>
+                <label for="p-name-fr">Nom du produit <span class="lang-badge">FR</span></label>
+                <input class="input" id="p-name-fr" type="text" maxlength="120" placeholder="Nom en français">
+              </div>
+
+              <div class="field" id="pf-desc-tr">
+                <label for="p-desc-tr">Açıklama <span class="lang-badge">TR</span></label>
+                <textarea class="textarea" id="p-desc-tr" maxlength="1200" placeholder="Türkçe açıklama…"></textarea>
+              </div>
+              <div class="field" id="pf-desc-en" hidden>
+                <label for="p-desc-en">Description <span class="lang-badge">EN</span></label>
+                <textarea class="textarea" id="p-desc-en" maxlength="1200" placeholder="English description…"></textarea>
+              </div>
+              <div class="field" id="pf-desc-ar" hidden>
+                <label for="p-desc-ar">الوصف <span class="lang-badge">AR</span></label>
+                <textarea class="textarea" id="p-desc-ar" maxlength="1200" placeholder="الوصف بالعربية…" dir="rtl"></textarea>
+              </div>
+              <div class="field" id="pf-desc-de" hidden>
+                <label for="p-desc-de">Beschreibung <span class="lang-badge">DE</span></label>
+                <textarea class="textarea" id="p-desc-de" maxlength="1200" placeholder="Deutsche Beschreibung…"></textarea>
+              </div>
+              <div class="field" id="pf-desc-fr" hidden>
+                <label for="p-desc-fr">Description <span class="lang-badge">FR</span></label>
+                <textarea class="textarea" id="p-desc-fr" maxlength="1200" placeholder="Description en français…"></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="field">
+                  <label for="p-price">Fiyat (₺) <span class="req">*</span></label>
+                  <input class="input" id="p-price" type="text" inputmode="decimal" required placeholder="49.99">
+                </div>
+                <div class="field">
+                  <label for="p-stock">Stok</label>
+                  <input class="input" id="p-stock" type="number" inputmode="numeric" min="0" step="1" placeholder="0">
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="p-category-id">Kategori</label>
+                <select class="input" id="p-category-id">
+                  <option value="">— Kategori seç —</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="p-image">Ürün fotoğrafı</label>
+                <div class="image-picker">
+                  <div class="image-preview" id="image-preview" aria-hidden="true">Fotoğraf yok</div>
+                  <div class="ip-body">
+                    <input type="file" id="p-image" accept="image/jpeg,image/png,image/webp">
+                    <span class="hint">JPG, PNG veya WebP · max 3 MB · Önerilen: 800 × 1000 px (4:5 oran)</span>
+                    <button class="btn btn-outline btn-sm" id="remove-image" type="button" hidden>Fotoğrafı kaldır</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="check-row">
+                <input type="checkbox" id="p-active" checked>
+                <label for="p-active">Yayında <span class="hint">Kapalıysa vitrinde görünmez.</span></label>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn" id="save-btn" type="submit"><span id="save-label">Ürünü kaydet</span></button>
+                <button class="btn btn-outline" id="reset-btn" type="reset">Temizle</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="panel" aria-labelledby="list-title">
+            <div class="panel-head">
+              <h2 id="list-title">Ürünler</h2>
+              <span class="count" id="product-count">—</span>
+            </div>
+            <div id="list-state" class="admin-empty" hidden></div>
+            <ul class="admin-list" id="admin-list" aria-live="polite"></ul>
+          </section>
+        </div>
+      </div>
+
+      <!-- ===== KATEGORİLER ===== -->
+      <div class="tab-panel" id="tab-categories" hidden>
+        <div class="admin-grid">
+          <section class="panel" aria-labelledby="cat-form-title">
+            <div class="panel-head">
+              <h2 id="cat-form-title">Yeni kategori</h2>
+              <button class="btn btn-outline btn-sm" id="cat-cancel-edit" type="button" hidden>Vazgeç</button>
+            </div>
+            <form id="category-form" novalidate>
+              <input type="hidden" id="cat-id">
+
+              <div class="lang-tabs" id="cat-lang-tabs" role="tablist" aria-label="Kategori dili">
+                <button class="ltab is-active" role="tab" aria-selected="true"  data-lang="tr" type="button">TR</button>
+                <button class="ltab" role="tab" aria-selected="false" data-lang="en" type="button">EN</button>
+                <button class="ltab" role="tab" aria-selected="false" data-lang="ar" type="button">AR</button>
+                <button class="ltab" role="tab" aria-selected="false" data-lang="de" type="button">DE</button>
+                <button class="ltab" role="tab" aria-selected="false" data-lang="fr" type="button">FR</button>
+              </div>
+
+              <div class="field" id="cf-name-tr">
+                <label for="cat-name-tr">Kategori adı <span class="req">*</span> <span class="lang-badge">TR</span></label>
+                <input class="input" id="cat-name-tr" type="text" maxlength="80" required placeholder="Türkçe kategori adı">
+              </div>
+              <div class="field" id="cf-name-en" hidden>
+                <label for="cat-name-en">Category name <span class="lang-badge">EN</span></label>
+                <input class="input" id="cat-name-en" type="text" maxlength="80" placeholder="English category name">
+              </div>
+              <div class="field" id="cf-name-ar" hidden>
+                <label for="cat-name-ar">اسم الفئة <span class="lang-badge">AR</span></label>
+                <input class="input" id="cat-name-ar" type="text" maxlength="80" placeholder="الاسم بالعربية" dir="rtl">
+              </div>
+              <div class="field" id="cf-name-de" hidden>
+                <label for="cat-name-de">Kategoriename <span class="lang-badge">DE</span></label>
+                <input class="input" id="cat-name-de" type="text" maxlength="80" placeholder="Deutscher Kategoriename">
+              </div>
+              <div class="field" id="cf-name-fr" hidden>
+                <label for="cat-name-fr">Nom de catégorie <span class="lang-badge">FR</span></label>
+                <input class="input" id="cat-name-fr" type="text" maxlength="80" placeholder="Nom en français">
+              </div>
+
+              <div class="field">
+                <label for="cat-parent">Üst kategori</label>
+                <select class="input" id="cat-parent">
+                  <option value="">— Üst yok (ana kategori) —</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <div class="field">
+                  <label for="cat-sort">Sıra</label>
+                  <input class="input" id="cat-sort" type="number" min="0" step="1" placeholder="0">
+                </div>
+              </div>
+              <div class="check-row">
+                <input type="checkbox" id="cat-active" checked>
+                <label for="cat-active">Aktif</label>
+              </div>
+              <div class="form-actions">
+                <button class="btn" id="cat-save-btn" type="submit"><span id="cat-save-label">Kategoriyi kaydet</span></button>
+                <button class="btn btn-outline" id="cat-reset-btn" type="reset">Temizle</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="panel" aria-labelledby="cat-list-title">
+            <div class="panel-head">
+              <h2 id="cat-list-title">Kategoriler</h2>
+              <span class="count" id="cat-count">—</span>
+            </div>
+            <div id="cat-list-state" class="admin-empty" hidden></div>
+            <ul class="admin-list cat-tree" id="cat-list" aria-live="polite"></ul>
+          </section>
+        </div>
+      </div>
+
+      <!-- ===== SİTE AYARLARI ===== -->
+      <div class="tab-panel" id="tab-settings" hidden>
+        <div class="settings-tabs-wrap">
+          <div class="settings-subtabs" role="tablist" aria-label="Ayar bölümleri">
+            <button class="stab is-active" data-stab="branding" role="tab" type="button">Logo &amp; Marka</button>
+            <button class="stab" data-stab="banner"   role="tab" type="button">Banner</button>
+            <button class="stab" data-stab="contact"  role="tab" type="button">İletişim</button>
+            <button class="stab" data-stab="about"    role="tab" type="button">Hakkımızda</button>
+          </div>
+
+          <section class="stab-panel is-active panel" id="stab-branding" aria-label="Logo ve Marka">
+            <h2 class="panel-section-title">Logo &amp; Marka</h2>
+            <form id="branding-form" novalidate>
+              <div class="field">
+                <label for="s-store-name">Mağaza adı</label>
+                <input class="input" id="s-store-name" type="text" maxlength="80" placeholder="Şark Dokusu">
+              </div>
+              <div class="field">
+                <label>Logo</label>
+                <div class="image-picker">
+                  <div class="image-preview logo-preview" id="logo-preview" aria-hidden="true">Logo yok</div>
+                  <div class="ip-body">
+                    <input type="file" id="s-logo" accept="image/jpeg,image/png,image/webp">
+                    <span class="hint">PNG, JPG veya WebP · max 5 MB · Şeffaf PNG önerilir</span>
+                    <button class="btn btn-outline btn-sm" id="remove-logo" type="button" hidden>Logoyu kaldır</button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="field">
+                  <label for="s-logo-w">Logo genişliği (px)</label>
+                  <input class="input" id="s-logo-w" type="number" min="16" max="200" placeholder="38">
+                </div>
+                <div class="field">
+                  <label for="s-logo-h">Logo yüksekliği (px)</label>
+                  <input class="input" id="s-logo-h" type="number" min="16" max="200" placeholder="38">
+                </div>
+              </div>
+              <div class="form-actions">
+                <button class="btn" id="branding-save-btn" type="submit"><span id="branding-save-label">Kaydet</span></button>
+              </div>
+            </form>
+          </section>
+
+          <section class="stab-panel panel" id="stab-banner" hidden aria-label="Banner">
+            <h2 class="panel-section-title">Banner</h2>
+            <form id="banner-form" novalidate>
+              <div class="check-row">
+                <input type="checkbox" id="s-banner-active">
+                <label for="s-banner-active">Banner'ı göster</label>
+              </div>
+
+              <div class="lang-tabs" id="banner-lang-tabs" role="tablist" aria-label="Banner dili">
+                <button class="ltab is-active" role="tab" aria-selected="true"  data-lang="tr" type="button">TR</button>
+                <button class="ltab" role="tab" aria-selected="false" data-lang="en" type="button">EN</button>
+                <button class="ltab" role="tab" aria-selected="false" data-lang="ar" type="button">AR</button>
+                <button class="ltab" role="tab" aria-selected="false" data-lang="de" type="button">DE</button>
+                <button class="ltab" role="tab" aria-selected="false" data-lang="fr" type="button">FR</button>
+              </div>
+
+              <div class="field" id="bf-tr">
+                <label for="s-banner-text-tr">Banner metni <span class="lang-badge">TR</span></label>
+                <input class="input" id="s-banner-text-tr" type="text" maxlength="200" placeholder="Ücretsiz kargo — 500₺ üzeri siparişlerde">
+              </div>
+              <div class="field" id="bf-en" hidden>
+                <label for="s-banner-text-en">Banner text <span class="lang-badge">EN</span></label>
+                <input class="input" id="s-banner-text-en" type="text" maxlength="200" placeholder="Free shipping on orders over $25">
+              </div>
+              <div class="field" id="bf-ar" hidden>
+                <label for="s-banner-text-ar">نص البانر <span class="lang-badge">AR</span></label>
+                <input class="input" id="s-banner-text-ar" type="text" maxlength="200" placeholder="شحن مجاني…" dir="rtl">
+              </div>
+              <div class="field" id="bf-de" hidden>
+                <label for="s-banner-text-de">Banner-Text <span class="lang-badge">DE</span></label>
+                <input class="input" id="s-banner-text-de" type="text" maxlength="200" placeholder="Kostenloser Versand ab 25€">
+              </div>
+              <div class="field" id="bf-fr" hidden>
+                <label for="s-banner-text-fr">Texte bannière <span class="lang-badge">FR</span></label>
+                <input class="input" id="s-banner-text-fr" type="text" maxlength="200" placeholder="Livraison gratuite à partir de 25€">
+              </div>
+
+              <div class="field">
+                <label for="s-banner-link">Bağlantı URL (isteğe bağlı)</label>
+                <input class="input" id="s-banner-link" type="url" placeholder="https://…">
+              </div>
+              <div class="field">
+                <label>Banner görseli (isteğe bağlı)</label>
+                <div class="image-picker">
+                  <div class="image-preview banner-preview" id="banner-preview" aria-hidden="true">Görsel yok</div>
+                  <div class="ip-body">
+                    <input type="file" id="s-banner-img" accept="image/jpeg,image/png,image/webp">
+                    <span class="hint">JPG, PNG veya WebP · max 5 MB · Önerilen: 1440 × 300 px (yatay, tam genişlik)</span>
+                    <button class="btn btn-outline btn-sm" id="remove-banner-img" type="button" hidden>Görseli kaldır</button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button class="btn" id="banner-save-btn" type="submit"><span id="banner-save-label">Kaydet</span></button>
+              </div>
+            </form>
+          </section>
+
+          <section class="stab-panel panel" id="stab-contact" hidden aria-label="İletişim">
+            <h2 class="panel-section-title">İletişim &amp; Adres</h2>
+            <form id="contact-form" novalidate>
+              <div class="field">
+                <label for="s-address">Adres</label>
+                <textarea class="textarea" id="s-address" maxlength="400" placeholder="Sokak, İlçe, Şehir"></textarea>
+              </div>
+              <div class="form-row">
+                <div class="field">
+                  <label for="s-phone">Telefon</label>
+                  <input class="input" id="s-phone" type="tel" placeholder="+90 532 …">
+                </div>
+                <div class="field">
+                  <label for="s-whatsapp">WhatsApp</label>
+                  <input class="input" id="s-whatsapp" type="tel" placeholder="905321234567">
+                  <span class="hint">Uluslararası format, + ve boşluk olmadan</span>
+                </div>
+              </div>
+              <div class="field">
+                <label for="s-email">E-posta</label>
+                <input class="input" id="s-email" type="email" placeholder="info@sarkdokusu.com">
+              </div>
+              <div class="form-row">
+                <div class="field">
+                  <label for="s-instagram">Instagram</label>
+                  <input class="input" id="s-instagram" type="text" placeholder="@sarkdokusu">
+                </div>
+                <div class="field">
+                  <label for="s-facebook">Facebook</label>
+                  <input class="input" id="s-facebook" type="text" placeholder="sarkdokusu">
+                </div>
+              </div>
+              <div class="field">
+                <label for="s-youtube">YouTube</label>
+                <input class="input" id="s-youtube" type="text" placeholder="@sarkdokusu">
+              </div>
+              <div class="form-actions">
+                <button class="btn" id="contact-save-btn" type="submit"><span id="contact-save-label">Kaydet</span></button>
+              </div>
+            </form>
+          </section>
+
+          <section class="stab-panel panel" id="stab-about" hidden aria-label="Hakkımızda">
+            <h2 class="panel-section-title">Hakkımızda Maddeleri</h2>
+            <p class="hint" style="margin-bottom:16px">Ana sayfadaki güven şeridinde gösterilen maddeler. Her madde çok dilli olabilir.</p>
+            <div id="about-items-editor"></div>
+            <button class="btn btn-outline" id="add-about-item" type="button" style="margin-top:12px">+ Madde ekle</button>
+            <div class="form-actions" style="margin-top:20px">
+              <button class="btn" id="about-save-btn" type="button"><span id="about-save-label">Kaydet</span></button>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- ===== HESAP ===== -->
+      <div class="tab-panel" id="tab-account" hidden>
+        <div class="panel" style="max-width:480px">
+          <h2 class="panel-section-title" style="margin-bottom:20px">Hesap Ayarları</h2>
+          <div class="field" style="margin-bottom:20px">
+            <label>Mevcut e-posta</label>
+            <input class="input" type="email" id="acct-email-display" disabled>
+          </div>
+          <h3 style="font-size:15px;margin:0 0 12px;font-family:var(--font-body);font-weight:600">Şifre değiştir</h3>
+          <div class="alert is-error" id="pw-alert" role="alert" hidden></div>
+          <form id="pw-form" novalidate>
+            <div class="field">
+              <label for="pw-new">Yeni şifre</label>
+              <input class="input" id="pw-new" type="password" autocomplete="new-password" minlength="8" placeholder="En az 8 karakter">
+            </div>
+            <div class="field">
+              <label for="pw-confirm">Yeni şifre (tekrar)</label>
+              <input class="input" id="pw-confirm" type="password" autocomplete="new-password" placeholder="Şifreyi tekrar girin">
+            </div>
+            <div class="form-actions">
+              <button class="btn" id="pw-save-btn" type="submit"><span id="pw-save-label">Şifreyi güncelle</span></button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </main>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.0/dist/umd/supabase.min.js"
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

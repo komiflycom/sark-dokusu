@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Şark Dokusu — Doğal Dokunuşlu El Emeği Ürünler</title>
+  <meta name="description" content="Şark Dokusu: özenle seçilmiş doğal ürünler, el emeği dokunuşlar ve sade bir koleksiyon. WhatsApp üzerinden kolay sipariş.">
+  <meta name="theme-color" content="#f5efe6">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Şark Dokusu">
+  <meta property="og:description" content="Özenle seçilmiş doğal ürünler ve el emeği dokunuşlar.">
+  <meta property="og:locale" content="tr_TR">
+  <meta property="og:image" content="logo.png">
+
+  <link rel="canonical" href="https://sarkdokusu.com/">
+  <link rel="icon" href="logo.png" type="image/png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#koleksiyon" data-i18n="skip.content">İçeriğe geç</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="./" data-i18n="brand.aria" data-i18n-prop="aria-label" aria-label="Şark Dokusu ana sayfa">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="logo.png" alt="" width="38" height="38" loading="eager" decoding="sync">
+        </span>
+        <span class="brand-text">
+          <span class="brand-name" data-store-name>Şark Dokusu</span>
+          <span class="brand-sub">Doğal &amp; El Emeği</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" data-i18n="nav.aria" data-i18n-prop="aria-label" aria-label="Ana menü">
+        <a class="nav-link" href="#koleksiyon" data-i18n="nav.collection">Koleksiyon</a>
+        <a class="nav-link nav-hide-sm" href="#hakkimizda" data-i18n="nav.about">Hakkımızda</a>
+        <a class="nav-link nav-cta" href="#koleksiyon" data-i18n="nav.order">Sipariş Ver</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow" data-i18n="hero.eyebrow">Doğadan gelen dokunuş</p>
+        <h1 data-i18n="hero.title" data-i18n-prop="innerHTML">Her parçada <em>sabrın</em> ve doğanın izi</h1>
+        <p class="hero-lead" data-i18n="hero.lead">
+          Şark Dokusu; özenle seçilmiş doğal malzemelerle, el emeğiyle hazırlanan
+          sade bir koleksiyon sunar. Beğendiğiniz ürünü seçin, WhatsApp üzerinden
+          birkaç saniyede siparişinizi iletin.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#koleksiyon" data-i18n="hero.cta_explore">Koleksiyonu keşfet</a>
+          <a class="btn btn-outline" href="#hakkimizda" data-i18n="hero.cta_story">Hikâyemiz</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= KATALOG ================= -->
+    <section class="catalog" id="koleksiyon" aria-labelledby="koleksiyon-baslik">
+      <div class="wrap">
+        <div class="catalog-head">
+          <div>
+            <h2 id="koleksiyon-baslik" data-i18n="catalog.title">Koleksiyon</h2>
+            <p data-i18n="catalog.subtitle">Özenle seçilmiş ürünlerimizi keşfedin.</p>
+          </div>
+          <span class="result-count" id="result-count" aria-live="polite" data-i18n="loading">Yükleniyor…</span>
+        </div>
+
+        <div class="toolbar">
+          <div class="search-field">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+                 stroke-linecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7.5"></circle>
+              <path d="m21 21-4.2-4.2"></path>
+            </svg>
+            <label class="visually-hidden" for="search-input" data-i18n="search.label">Ürün ara</label>
+            <input id="search-input" type="search" data-i18n="search.placeholder" data-i18n-prop="placeholder"
+                   placeholder="Ürün adı veya kategori ara…" autocomplete="off" spellcheck="false">
+            <button class="search-clear" id="search-clear" type="button"
+                    data-i18n="search.clear_aria" data-i18n-prop="aria-label" aria-label="Aramayı temizle">×</button>
+          </div>
+
+          <div class="chips" id="category-chips" role="group"
+               data-i18n="chips.aria" data-i18n-prop="aria-label" aria-label="Kategori filtresi" hidden></div>
+        </div>
+
+        <ul class="product-grid" id="product-grid" aria-live="polite" aria-busy="true">
+          <!-- Ürünler store.js tarafından basılır -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= GÜVEN ŞERİDİ ================= -->
+    <section class="trust" id="hakkimizda" aria-labelledby="hakkimizda-baslik">
+      <div class="wrap">
+        <h2 id="hakkimizda-baslik" class="visually-hidden" data-i18n="trust.heading">Hakkımızda</h2>
+        <div class="trust-grid">
+          <div class="trust-item">
+            <span class="ti-mark" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 20A7 7 0 0 1 4 13c0-5 4-9 9-9h7v3a9 9 0 0 1-9 9h-1"></path>
+                <path d="M4 21c1-4 3-6 6-8"></path>
+              </svg>
+            </span>
+            <div>
+              <h3 data-i18n="trust.natural_title">Doğal malzeme</h3>
+              <p data-i18n="trust.natural_desc">Ürünlerimiz doğal içerik ve geleneksel yöntemlerle, küçük partiler hâlinde hazırlanır.</p>
+            </div>
+          </div>
+
+          <div class="trust-item">
+            <span class="ti-mark" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+            </span>
+            <div>
+              <h3 data-i18n="trust.easy_title">Kolay sipariş</h3>
+              <p data-i18n="trust.easy_desc">Üyelik gerekmez. Beğendiğiniz ürünü WhatsApp'tan tek dokunuşla bize iletin.</p>
+            </div>
+          </div>
+
+          <div class="trust-item">
+            <span class="ti-mark" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path>
+              </svg>
+            </span>
+            <div>
+              <h3 data-i18n="trust.packaging_title">Özenli paketleme</h3>
+              <p data-i18n="trust.packaging_desc">Her sipariş, yola çıkmadan önce tek tek kontrol edilerek özenle paketlenir.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="./">
+            <span class="brand-mark" aria-hidden="true">
+              <img src="logo.png" alt="" width="38" height="38" loading="lazy" decoding="async">
+            </span>
+            <span class="brand-text">
+              <span class="brand-name" data-store-name>Şark Dokusu</span>
+              <span class="brand-sub">Doğal &amp; El Emeği</span>
+            </span>
+          </a>
+          <p class="footer-about" data-i18n="footer.about">
+            Doğal malzemelerle, sabırla ve özenle hazırlanan ürünler.
+            Siparişlerinizi WhatsApp üzerinden iletebilirsiniz.
+          </p>
+        </div>
+
+        <div>
+          <h4 data-i18n="footer.explore">Keşfet</h4>
+          <ul class="footer-links">
+            <li><a href="#koleksiyon" data-i18n="nav.collection">Koleksiyon</a></li>
+            <li><a href="#hakkimizda" data-i18n="nav.about">Hakkımızda</a></li>
+            <li><a href="admin.html" data-i18n="footer.admin">Yönetici girişi</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 data-i18n="footer.contact">İletişim</h4>
+          <ul class="footer-links">
+            <li><span data-i18n="footer.orders">Sipariş: WhatsApp</span></li>
+            <li><a href="https://sarkdokusu.com">sarkdokusu.com</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© <span id="year">2026</span> <span data-store-name>Şark Dokusu</span>. <span data-i18n="footer.rights">Tüm hakları saklıdır.</span></span>
+        <span data-i18n="footer.tagline">Doğal dokunuşlar, elden ele.</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="false"></div>
+
+  <!-- Supabase JS (pinlenmiş sürüm) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.0/dist/umd/supabase.min.js"
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="config.js"></script>
+  <script src="i18n.js"></script>
+  <script src="store.js"></script>
+</body>
+</html>
